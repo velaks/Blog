@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="roles")
-public class Roles {
+public class Role {
 	@Id
 	@GeneratedValue
 	private Long id;

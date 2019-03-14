@@ -1,6 +1,8 @@
 package com.my.blog.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -18,7 +20,7 @@ public class User {
 	
 	@Column(nullable=false)
 	@NotBlank(message="Name must be inserted")
-	@Pattern(regexp = "^[\\p{L}0-9\\.+\\- ]+$")
+	@Pattern(regexp = "^[\\p{L}0-9\\._\\- ]+$")
 	private String userName;
 	
 	@Column(nullable=false, unique=true)
@@ -36,7 +38,11 @@ public class User {
 	//how?
 	private LocalDateTime registDate;
 	
-	
-	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="users_roles",
+			joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id"))
+	private List<Role> roles = new ArrayList();
+		
 
 }
